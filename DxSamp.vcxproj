@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="globals.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
