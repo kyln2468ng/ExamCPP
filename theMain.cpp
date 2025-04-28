@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include "Player.h"
 
 namespace
 {
@@ -40,12 +41,15 @@ void MyGame()
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	DxInit();
+	Player* player = new Player();
 
 	while (true)
 	{
 		ClearDrawScreen();
 
 		//‚±‚±‚É‚â‚è‚½‚¢ˆ—‚ð‘‚­
+		player->Update();
+		player->Draw();
 
 
 
