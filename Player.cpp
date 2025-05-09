@@ -33,17 +33,19 @@ Player::~Player()
 
 void Player::Update()
 {
+	float dt = GetDeltaTiem();
 	if (Input::IsKeepKeyDown(KEY_INPUT_A))
 	{
-		x_ -= speed_ * GetDeltaTiem();
+		x_ = x_ - speed_ * dt; // 右に移動
 	}
 	if (Input::IsKeepKeyDown(KEY_INPUT_D))
 	{
-		x_ += speed_ * GetDeltaTiem();
+		x_ = x_ + speed_ * dt; // 左に移動
 	}
 }
 
 void Player::Draw()
 {
+	// プレイヤーの画像を描画（画像の頂点は左上）
 	DrawExtendGraph(x_, y_, x_ + PLAYER_IMAGE_WIDTH, y_ + PLAYER_IMAGE_HEIGHT, hImage_, TRUE);
 }
