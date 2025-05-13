@@ -1,9 +1,11 @@
 #include "DxLib.h"
-#include "Player.h"
 #include "globals.h"
 #include "Input.h"
-#include "Enemy.h"
+#include <vector>
+#include "Stage.h"
 
+// STL(Standard Template Library)…vector,list,forward_list,queue,stack,array,set,map,pair...などがSTLに属してる
+//                               コンテナ(container)
 namespace
 {
 	const int BGCOLOR[3] = { 0, 0, 0 }; // 背景色
@@ -48,12 +50,27 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	crrTime = GetNowCount();
 	prevTime = GetNowCount();
 
-	Player* player = new Player();
-	Enemy* enemy = new Enemy[10];
-	for (int i = 0;i < 10;i++)
-	{
-		enemy[i].SetPos(100 + i * 50, 100);
-	}
+	Stage* stage = new Stage();
+
+	//const int ENEMY_NUM = 10; // 敵の数
+	//Player* player = new Player();
+	//Enemy* enemy = new Enemy[ENEMY_NUM];
+	//for (int i = 0;i < 10;i++)
+	//{
+	//	enemy[i].SetPos(100 + i * 50, 100);
+	//}
+	//std::vector<Enemy> enemy(ENEMY_NUM); // std::vectorを使用して敵の配列作る
+	//for (int i = 0;i < ENEMY_NUM;i++)
+	//{
+	//	enemy[i].SetPos(100 + i * 50, 100);
+	//}
+	//int i = 0;
+	//for (auto& e : enemy)
+	//{
+	//	e.SetPos(100 + i * 50, 100);
+	//	i++;
+	//}
+
 
 	while (true)
 	{
@@ -65,16 +82,26 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		float delatTime = (crrTime - prevTime) / 1000.0f;
 		gDeltaTime = delatTime;
 
-		//ここにやりたい処理を書く
-		player->Update();
-		player->Draw();
+		////ここにやりたい処理を書く
+		//player->Update();
+		//player->Draw();
 
-		for (int i = 0;i < 10;i++ )
-		{
-			(enemy+i)->Update();
-			(enemy+i)->Draw();
-		}
+		//// 全部の要素(コンテナ)になんかしらする
+		//for (auto& elm : enemy) // &をつけると参照になる。なんもしなきゃコピーができる
+		//{
+		//	elm.Update();
+		//	elm.Draw();
+		//}
+		//for (int i = 0;i < 10;i++ )
+		//{
+		//	(enemy+i)->Update();
+		//	(enemy+i)->Draw();
+		//}
 		// 裏画面の描画
+
+		stage->Update();
+		stage->Draw();
+
 		ScreenFlip();
 		WaitTimer(16);
 

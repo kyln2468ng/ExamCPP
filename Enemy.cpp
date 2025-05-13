@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "DxLib.h"
+#include <string>
 
 namespace
 {
@@ -14,11 +15,46 @@ namespace
 Enemy::Enemy()
 	:GameObject(),
 	hImage_(-1),
-	x_(0),y_(0),
+	x_(0), y_(0),
 	speed_(0),
-	isAlive_(true)
+	isAlive_(true),
+	cTime(0)
 {
 	hImage_ = LoadGraph("Assets\\tiny_ship10.png");
+	if (hImage_ == -1)
+	{
+
+	}
+	x_ = ENEMY_INIT_X;
+	y_ = ENEMY_INIT_Y;
+	speed_ = ENEMY_INIT_SPEED;
+
+}
+
+Enemy::Enemy(int id, ETYPE type)
+	:GameObject(),
+	hImage_(-1),
+	x_(0), y_(0),
+	speed_(0),
+	isAlive_(true),
+	cTime(0),
+	ID_(id),type_(type)
+{
+	//ETYPE::ZAKO;"Assets/tiny_ship10.png
+	//ETYPE::MID;"Assets/tiny_ship18.png
+	//ETYPE::KNIGHT;"Assets/tiny_ship16.png
+	//ETYPE::BOSS;"Assets/tiny_ship9.png
+
+	std::string imagePath[MAX_ETYPE] =
+	{
+		"Assets/tiny_ship10.png", // ZAKO
+		"Assets/tiny_ship18.png", // MID
+		"Assets/tiny_ship16.png", // KNIGHT
+		"Assets/tiny_ship9.png"	  // BOSS
+
+	};
+
+	hImage_ = LoadGraph(imagePath[type_].c_str());
 	if (hImage_ == -1)
 	{
 
@@ -38,6 +74,19 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
+	cTime += 0.06f;
+	if (cTime < 5.0f)
+	{
+		x_ += 2.0f;
+	}
+	if (5.0f < cTime && cTime < 10.0f)
+	{
+		x_ -= 2.0f;
+		if (cTime > 20.0f)
+		{
+			cTime = 0.0f;
+		}
+	}
 }
 
 void Enemy::Draw()
