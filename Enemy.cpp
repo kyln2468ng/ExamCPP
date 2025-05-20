@@ -18,7 +18,8 @@ Enemy::Enemy()
 	x_(0), y_(0),
 	speed_(0),
 	isAlive_(true),
-	cTime(0)
+	cTime(0),
+	ID_(0),type_()
 {
 	hImage_ = LoadGraph("Assets\\tiny_ship10.png");
 	if (hImage_ == -1)
@@ -28,7 +29,6 @@ Enemy::Enemy()
 	x_ = ENEMY_INIT_X;
 	y_ = ENEMY_INIT_Y;
 	speed_ = ENEMY_INIT_SPEED;
-
 }
 
 Enemy::Enemy(int id, ETYPE type)
@@ -62,6 +62,7 @@ Enemy::Enemy(int id, ETYPE type)
 	x_ = ENEMY_INIT_X;
 	y_ = ENEMY_INIT_Y;
 	speed_ = ENEMY_INIT_SPEED;
+	AddGameObject(this);
 }
 
 Enemy::~Enemy()
@@ -74,7 +75,7 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	cTime += 0.06f;
+	/*cTime += 0.06f;
 	if (cTime < 5.0f)
 	{
 		x_ += 2.0f;
@@ -86,7 +87,7 @@ void Enemy::Update()
 		{
 			cTime = 0.0f;
 		}
-	}
+	}*/
 }
 
 void Enemy::Draw()

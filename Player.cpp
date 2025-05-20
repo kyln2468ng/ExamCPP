@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "globals.h"
 #include "Input.h"
+#include "Bullet.h"
 
 namespace
 {
@@ -25,6 +26,7 @@ Player::Player()
 	x_ = PLAYER_INIT_X; // 初期座標
 	y_ = PLAYER_INIT_Y; // 初期座標
 	speed_ = PLAYER_INIT_SPEED; // 初期速度
+	AddGameObject(this); // プレイヤーオブジェクトをゲームオブジェクトに追加※自分自身を追加的な
 }
 
 Player::~Player()
@@ -41,6 +43,10 @@ void Player::Update()
 	if (Input::IsKeepKeyDown(KEY_INPUT_D))
 	{
 		x_ = x_ + speed_ * dt; // 左に移動
+	}
+	if (Input::IsKeyDown(KEY_INPUT_SPACE))
+	{
+		new Bullet(x_, y_);
 	}
 }
 
