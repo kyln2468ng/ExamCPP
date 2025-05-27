@@ -23,7 +23,7 @@ Stage::Stage()
 		ETYPE enemyType[ENEMY_ROW_SIZE] = { BOSS,KNIGHT,MID,ZAKO,ZAKO,ZAKO };
 
 		enemy_[i] = new Enemy(i,enemyType[row]);
-		enemy_[i]->SetPos(col * 50 , row * 50 );
+		enemy_[i]->SetPos(col * 50.0f , row * 50.0f );
 	}
 }
 
@@ -33,18 +33,18 @@ Stage::~Stage()
 
 void Stage::Update()
 {
-	player_->Update(); // プレイヤーの更新
-	for (auto& elm : enemy_) // 敵の更新
-	{
-		elm->Update();
-	}
+	//player_->Update(); // プレイヤーの更新
+	//for (auto& elm : enemy_) // 敵の更新
+	//{
+	//	elm->Update();
+	//}
 }
 
 void Stage::Draw()
 {
-	player_->Draw(); // プレイヤーの描画
-	for (auto& elm : enemy_) // 敵の描画
-	{
-		elm->Draw();
-	}
+	//player_->Draw(); // プレイヤーの描画
+	//for (auto& elm : enemy_) // 敵の描画
+	//{
+	//	elm->Draw();
+	//}
 }

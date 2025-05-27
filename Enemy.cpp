@@ -17,7 +17,6 @@ Enemy::Enemy()
 	hImage_(-1),
 	x_(0), y_(0),
 	speed_(0),
-	isAlive_(true),
 	cTime(0),
 	ID_(0),type_()
 {
@@ -36,7 +35,6 @@ Enemy::Enemy(int id, ETYPE type)
 	hImage_(-1),
 	x_(0), y_(0),
 	speed_(0),
-	isAlive_(true),
 	cTime(0),
 	ID_(id),type_(type)
 {
@@ -92,5 +90,5 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	DrawExtendGraph(x_, y_, x_ + ENEMY_IMAGE_WIDTH, y_ + ENEMY_IMAGE_HEIGHT, hImage_, TRUE);
+	DrawExtendGraph((int)x_, (int)y_, (int)(x_ + ENEMY_IMAGE_WIDTH), (int)(y_ + ENEMY_IMAGE_HEIGHT), hImage_, TRUE);
 }
