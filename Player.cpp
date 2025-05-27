@@ -13,6 +13,8 @@ namespace
 
 	const float PLAYER_INIT_X = (WIN_WIDTH - PLAYER_IMAGE_WIDTH) / 2;  // プレイヤーの初期X座標
 	const float PLAYER_INIT_Y = WIN_HEIGHT - PLAYER_IMAGE_HEIGHT - PLAYER_BACE_MARGIN; // プレイヤーの初期Y座標
+	const int BULLET_IMAGE_MAGIN= 17; // P_I_W - B_I_W )/2
+	const float BULLET_INTERVAL = 0.5f;
 }
 
 Player::Player()
@@ -44,9 +46,20 @@ void Player::Update()
 	{
 		x_ = x_ + speed_ * dt; // 左に移動
 	}
+
+	static float bulletTimer = 0.0f; // 弾の発射タイマー
+	if (bulletTimer > 0.0f)
+	{
+		bulletTimer -= dt;
+	}
+
 	if (Input::IsKeyDown(KEY_INPUT_SPACE))
 	{
-		new Bullet(x_, y_);
+		if (bulletTimer <= 0.0f)
+		{
+			new Bullet(x_ + BULLET_IMAGE_MAGIN, y_); // 弾の発射
+			bulletTimer = BULLET_INTERVAL; // 弾の発射間隔のリセット
+		}
 	}
 }
 
