@@ -1,22 +1,22 @@
 #include "DxLib.h"
 #include "globals.h"
-#include "Input.h"
+#include "input.h"
 #include <vector>
 #include "Stage.h"
 
-// STL(Standard Template Library)…vector,list,forward_list,queue,stack,array,set,map,pair...などがSTLに属してる
-//                               コンテナ(container)
+
 namespace
 {
-	const int BGCOLOR[3] = { 0, 0, 0 }; // 背景色
+	const int BGCOLOR[3] = { 0, 0, 0 }; // 背景色{ 255, 250, 205 }; // 背景色
 	int crrTime;
 	int prevTime;
 }
 
-std::vector<GameObject*> gameObjects; // ゲームのモブジェクトのベクター
+std::vector<GameObject*> gameObjects; // ゲームオブジェクトのベクター
 std::vector<GameObject*> newObjects; // ゲームオブジェクトのベクター
 
-float gDeltaTime = 0.0f; // フレーム間の時間差　
+
+float gDeltaTime = 0.0f; // フレーム間の時間差
 
 void DxInit()
 {
@@ -25,7 +25,7 @@ void DxInit()
 	SetMainWindowText("TITLE");
 	SetGraphMode(WIN_WIDTH, WIN_HEIGHT, 32);
 	SetWindowSizeExtendRate(1.0);
-	SetBackgroundColor(BGCOLOR[0],BGCOLOR[1],BGCOLOR[2]);
+	SetBackgroundColor(BGCOLOR[0], BGCOLOR[1], BGCOLOR[2]);
 
 	// ＤＸライブラリ初期化処理
 	if (DxLib_Init() == -1)
@@ -53,100 +53,53 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	crrTime = GetNowCount();
 	prevTime = GetNowCount();
 
-	Stage* stage = new Stage();
-
-	//const int ENEMY_NUM = 10; // 敵の数
-	//Player* player = new Player();
-	//Enemy* enemy = new Enemy[ENEMY_NUM];
-	//for (int i = 0;i < 10;i++)
-	//{
-	//	enemy[i].SetPos(100 + i * 50, 100);
-	//}
-	//std::vector<Enemy> enemy(ENEMY_NUM); // std::vectorを使用して敵の配列作る
-	//for (int i = 0;i < ENEMY_NUM;i++)
-	//{
-	//	enemy[i].SetPos(100 + i * 50, 100);
-	//}
-	//int i = 0;
-	//for (auto& e : enemy)
-	//{
-	//	e.SetPos(100 + i * 50, 100);
-	//	i++;
-	//}
+	Stage* stage = new Stage(); // ステージオブジェクトの生成
 
 
 	while (true)
 	{
 		ClearDrawScreen();
-		Input::KeyStateUpdate(); // キーの状態を更新
+		Input::KeyStateUpdate(); // キー入力の状態を更新
 
 		crrTime = GetNowCount(); // 現在の時間を取得
-		// 前回の差分を計算
-		float delatTime = (crrTime - prevTime) / 1000.0f;
-		gDeltaTime = delatTime;
+		// 前回の時間との差分を計算
+		float deltaTime = (crrTime - prevTime) / 1000.0f; // 秒単位に変換
+		gDeltaTime = deltaTime; // グローバル変数に保存
 
-		if (newObjects.size() > 0)
-		{
-			for (auto& obj : newObjects)
-			{
-				gameObjects.push_back(obj);
+		//ここにやりたい処理を書く(ここから）
+		//ゲームオブジェクトの追加
+		if (newObjects.size() > 0) {
+			for (auto& obj : newObjects) {
+				gameObjects.push_back(obj); // 新しいゲームオブジェクトを追加	
 			}
+			newObjects.clear(); // 新しいゲームオブジェクトのベクターをクリア
 		}
-
-		for (auto& obj : newObjects)
-		{
-			gameObjects.push_back(obj); // 新しいゲームオブジェクトを追加
-		}
-		newObjects.clear();			// 新しいゲームオブジェクトのベクターをクリア
-
-		// gameobjectsの更新
-		for (auto& obj : gameObjects)
-		{
+		//gameObjectsの更新
+		for (auto& obj : gameObjects) {
 			obj->Update(); // ゲームオブジェクトの更新
 		}
-		// gameObjectsの描画
-		for (auto& obj : gameObjects)
-		{
+		//gameObjectsの描画
+		for (auto& obj : gameObjects) {
 			obj->Draw(); // ゲームオブジェクトの描画
 		}
 
-		for (auto it = gameObjects.begin(); it != gameObjects.end();) 
-		{
-			if (!(*it)->IsAlive()) 
-			{
+		for (auto it = gameObjects.begin(); it != gameObjects.end();) {
+			if (!(*it)->IsAlive()) {
 				delete* it; // ゲームオブジェクトを削除
 				it = gameObjects.erase(it); // ベクターから削除
 			}
-			else 
-			{
+			else {
 				++it; // 次の要素へ
 			}
 		}
+		//ここにやりたい処理を書く（ここまで）
 
-		////ここにやりたい処理を書く
-		//player->Update();
-		//player->Draw();
 
-		//// 全部の要素(コンテナ)になんかしらする
-		//for (auto& elm : enemy) // &をつけると参照になる。なんもしなきゃコピーができる
-		//{
-		//	elm.Update();
-		//	elm.Draw();
-		//}
-		//for (int i = 0;i < 10;i++ )
-		//{
-		//	(enemy+i)->Update();
-		//	(enemy+i)->Draw();
-		//}
-		// 裏画面の描画
-
-		/*stage->Update();
-		stage->Draw();*/
-
+		//裏画面の描画
 		ScreenFlip();
 		WaitTimer(16);
 
-		prevTime = crrTime; // 現在の時間前回の時間として保存
+		prevTime = crrTime; // 現在の時間を前回の時間として保存
 
 		if (ProcessMessage() == -1)
 			break;

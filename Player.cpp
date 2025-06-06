@@ -13,13 +13,13 @@ namespace
 
 	const float PLAYER_INIT_X = (WIN_WIDTH - PLAYER_IMAGE_WIDTH) / 2;  // プレイヤーの初期X座標
 	const float PLAYER_INIT_Y = WIN_HEIGHT - PLAYER_IMAGE_HEIGHT - PLAYER_BACE_MARGIN; // プレイヤーの初期Y座標
-	const int BULLET_IMAGE_MAGIN= 17; // P_I_W - B_I_W )/2
+	const int BULLET_IMAGE_MAGIN = 17; // P_I_W - B_I_W )/2
 	const float BULLET_INTERVAL = 0.5f; // 弾の発射感覚
 	const int PLAYER_BULLET_NUM = 5; // プレイヤーが同時に発射できる数
 }
 
 Player::Player()
-	:GameObject(), hImage_(-1), x_(0), y_(0),speed_(0)
+	:GameObject(), hImage_(-1), x_(0), y_(0),speed_(0),imageSize_({PLAYER_IMAGE_WIDTH,PLAYER_IMAGE_HEIGHT})
 {
 	hImage_ = LoadGraph("Assets\\tiny_ship5.png"); // プレイヤーの画像を読み込む
 	if (hImage_ == -1)
@@ -104,5 +104,6 @@ Bullet* Player::GetActiveBullet()
 			return itr; // 発射されていない弾を返す
 		}
 	}
+	return nullptr;
 }
 
