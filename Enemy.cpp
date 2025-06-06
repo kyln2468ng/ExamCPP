@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "DxLib.h"
 #include <string>
+#include "Effect.h"
 
 namespace
 {
@@ -9,7 +10,10 @@ namespace
 
 	const float ENEMY_INIT_X = 100;  // “G‚Ì‰ŠúXÀ•W
 	const float ENEMY_INIT_Y = 100; // “G‚Ì‰ŠúYÀ•W
-	const float ENEMY_INIT_SPEED = 100.0f; // “G‚Ì‰Šú‘¬“x 
+	const float ENEMY_INIT_SPEED = 1.0f; // “G‚Ì‰Šú‘¬“x 
+	float CENTER_X = WIN_WIDTH / 2;
+	const float ENEMY_MOVE_DIS = 55.0 * 10 / 2;
+
 }
 
 Enemy::Enemy()
@@ -37,7 +41,7 @@ Enemy::Enemy(int id, ETYPE type)
 	x_(0), y_(0),
 	speed_(0),
 	cTime(0),
-	ID_(id),type_(type)
+	ID_(id),type_(type), imageSize_({ ENEMY_IMAGE_WIDTH, ENEMY_IMAGE_HEIGHT })
 {
 	//ETYPE::ZAKO;"Assets/tiny_ship10.png
 	//ETYPE::MID;"Assets/tiny_ship18.png
@@ -66,6 +70,7 @@ Enemy::Enemy(int id, ETYPE type)
 
 Enemy::~Enemy()
 {
+	new Effect({ x_,y_ });
 	if (hImage_ != -1)
 	{
 		DeleteGraph(hImage_);
@@ -74,19 +79,25 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	/*cTime += 0.06f;
-	if (cTime < 5.0f)
+	static float rTime = 3.0f;
+	cTime += GetDeltaTiem();
+	if (cTime <= rTime)
 	{
-		x_ += 2.0f;
+		x_ += speed_;
 	}
-	if (5.0f < cTime && cTime < 10.0f)
+	else if (cTime >= rTime)
 	{
-		x_ -= 2.0f;
-		if (cTime > 20.0f)
+		x_ -= speed_;
+		if (cTime >= rTime * 2)
 		{
 			cTime = 0.0f;
 		}
-	}*/
+	}
+	//float period = 10.0f; // ˆê‰•œ‚É‚©‚¯‚éŠÔ(•b)
+	//float omega = 2.0f * 3.14459265358979f / period; // Šp‘¬“x@ƒÖ = 2ƒÎ
+	//cTime = cTime + GetDeltaTiem();
+	//x_ = xorigin_ + xMoveMax_ / 2.0f * sinf(omega * moveTime_);
+	//y_ = y_;
 }
 
 void Enemy::Draw()

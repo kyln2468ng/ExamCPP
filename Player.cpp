@@ -42,6 +42,7 @@ Player::~Player()
 
 void Player::Update()
 {
+	Point nextP = { x_,y_ };
 	float dt = GetDeltaTiem();
 	if (Input::IsKeepKeyDown(KEY_INPUT_A))
 	{
@@ -51,6 +52,12 @@ void Player::Update()
 	{
 		x_ = x_ + speed_ * dt; // 左に移動
 	}
+
+	//if (nextP.x >= 0 && nextP.x + PLAYER_IMAGE_WIDTH <= WIN_WIDTH)
+	//{
+	//	x_ = nextP.x;
+	//	y_ = nextP.y;
+	//}
 
 	static float bulletTimer = 0.0f; // 弾の発射タイマー
 	if (bulletTimer > 0.0f)

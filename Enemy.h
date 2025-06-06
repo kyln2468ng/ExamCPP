@@ -18,7 +18,7 @@ public:
     void Draw() override;
     void SetPos(float x, float y) { x_ = x;y_ = y; } // “G‚ÌÀ•W‚Ìİ’è
     // void SetID(int id) { ID_ = id; } // “G‚ÌID‚ğİ’è
-    Rect GetRect() const { return{ x_,y_,imageSize_.x,imageSize_.y }; }
+    Rect GetRect() const { return { x_, y_, imageSize_.x, imageSize_.y }; } // “G‚Ì‹éŒ`‚ğæ“¾
 protected:
 private:
     int hImage_;   // “G‚Ì‰æ‘œƒnƒ“ƒhƒ‹
