@@ -135,6 +135,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBeam.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBeam.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Input.h" />

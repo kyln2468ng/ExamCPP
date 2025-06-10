@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include <string>
 #include "Effect.h"
+#include "EnemyBeam.h"
 
 namespace
 {
@@ -79,6 +80,8 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
+	static float beamTimer = 3.0f;
+
 	static float rTime = 3.0f;
 	cTime += GetDeltaTiem();
 	if (cTime <= rTime)
@@ -94,10 +97,17 @@ void Enemy::Update()
 		}
 	}
 	//float period = 10.0f; // ˆê‰•œ‚É‚©‚¯‚éŽžŠÔ(•b)
-	//float omega = 2.0f * 3.14459265358979f / period; // Šp‘¬“x@ƒÖ = 2ƒÎ
+	//float omega = 2.0f * 3.1445926535f / period; // Šp‘¬“x@ƒÖ = 2ƒÎ
 	//cTime = cTime + GetDeltaTiem();
 	//x_ = xorigin_ + xMoveMax_ / 2.0f * sinf(omega * moveTime_);
 	//y_ = y_;
+
+	if (beamTimer < 0)
+	{
+		new EnemyBeam(x_ + ENEMY_IMAGE_WIDTH / 2, y_ + ENEMY_IMAGE_HEIGHT);
+		beamTimer = 3.0f;
+	}
+	beamTimer -= GetDeltaTiem();
 }
 
 void Enemy::Draw()
