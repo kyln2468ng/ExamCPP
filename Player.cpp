@@ -31,7 +31,7 @@ Player::Player()
 	speed_ = PLAYER_INIT_SPEED; // 初期速度
 	for (int i = 0;i < PLAYER_BULLET_NUM;i++)
 	{
-		bullets_.push_back(new Bullet()); // 弾のベクターを初期化
+		bullets_.push_back(new Bullet(-10,-10)); // 弾のベクターを初期化
 	}
 	AddGameObject(this); // プレイヤーオブジェクトをゲームオブジェクトに追加※自分自身を追加的な
 }
@@ -46,18 +46,18 @@ void Player::Update()
 	float dt = GetDeltaTiem();
 	if (Input::IsKeepKeyDown(KEY_INPUT_A))
 	{
-		x_ = x_ - speed_ * dt; // 右に移動
+		nextP.x = x_ - speed_ * dt; // 右に移動
 	}
 	if (Input::IsKeepKeyDown(KEY_INPUT_D))
 	{
-		x_ = x_ + speed_ * dt; // 左に移動
+		nextP.x = x_ + speed_ * dt; // 左に移動
 	}
 
-	//if (nextP.x >= 0 && nextP.x + PLAYER_IMAGE_WIDTH <= WIN_WIDTH)
-	//{
-	//	x_ = nextP.x;
-	//	y_ = nextP.y;
-	//}
+	if (nextP.x >= 0 && (nextP.x + PLAYER_IMAGE_WIDTH) <= WIN_WIDTH)
+	{
+		x_ = nextP.x;
+		y_ = nextP.y;
+	}
 
 	static float bulletTimer = 0.0f; // 弾の発射タイマー
 	if (bulletTimer > 0.0f)

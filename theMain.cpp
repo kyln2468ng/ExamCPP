@@ -3,6 +3,7 @@
 #include "input.h"
 #include <vector>
 #include "Stage.h"
+#include "GameScene.h"
 
 
 namespace
@@ -54,6 +55,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	prevTime = GetNowCount();
 
 	Stage* stage = new Stage(); // ステージオブジェクトの生成
+	GameScene* gamescene = new GameScene();
 
 
 	while (true)
@@ -67,6 +69,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		gDeltaTime = deltaTime; // グローバル変数に保存
 
 		//ここにやりたい処理を書く(ここから）
+		
+		gamescene->Update();
+		gamescene->Draw();
+		
 		//ゲームオブジェクトの追加
 		if (newObjects.size() > 0) {
 			for (auto& obj : newObjects) {

@@ -137,6 +137,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBeam.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBeam.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Player.h" />
