@@ -4,6 +4,7 @@
 #include <vector>
 #include "Stage.h"
 #include "GameScene.h"
+#include "PlayScene.h"
 
 
 namespace
@@ -11,12 +12,18 @@ namespace
 	const int BGCOLOR[3] = { 0, 0, 0 }; // 背景色{ 255, 250, 205 }; // 背景色
 	int crrTime;
 	int prevTime;
+
+	enum SceneState
+	{
+		TITLE,
+		PLAY,
+		GAMEOVER
+	};
+	int state = TITLE;
 }
 
 std::vector<GameObject*> gameObjects; // ゲームオブジェクトのベクター
 std::vector<GameObject*> newObjects; // ゲームオブジェクトのベクター
-
-
 float gDeltaTime = 0.0f; // フレーム間の時間差
 
 void DxInit()
@@ -55,8 +62,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	prevTime = GetNowCount();
 
 	Stage* stage = new Stage(); // ステージオブジェクトの生成
-	GameScene* gamescene = new GameScene();
-
+	//GameScene* gamescene = new GameScene();
+	//PlayScene* playscene = new PlayScene();
 
 	while (true)
 	{
@@ -70,34 +77,89 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		//ここにやりたい処理を書く(ここから）
 		
-		gamescene->Update();
-		gamescene->Draw();
-		
 		//ゲームオブジェクトの追加
-		if (newObjects.size() > 0) {
-			for (auto& obj : newObjects) {
-				gameObjects.push_back(obj); // 新しいゲームオブジェクトを追加	
-			}
-			newObjects.clear(); // 新しいゲームオブジェクトのベクターをクリア
-		}
-		//gameObjectsの更新
-		for (auto& obj : gameObjects) {
-			obj->Update(); // ゲームオブジェクトの更新
-		}
-		//gameObjectsの描画
-		for (auto& obj : gameObjects) {
-			obj->Draw(); // ゲームオブジェクトの描画
-		}
+		//if (newObjects.size() > 0) {
+		//	for (auto& obj : newObjects) {
+		//		gameObjects.push_back(obj); // 新しいゲームオブジェクトを追加	
+		//	}
+		//	newObjects.clear(); // 新しいゲームオブジェクトのベクターをクリア
+		//}
+		////gameObjectsの更新
+		//for (auto& obj : gameObjects) {
+		//	obj->Update(); // ゲームオブジェクトの更新
+		//}
+		////gameObjectsの描画
+		//for (auto& obj : gameObjects) {
+		//	obj->Draw(); // ゲームオブジェクトの描画
+		//}
 
-		for (auto it = gameObjects.begin(); it != gameObjects.end();) {
-			if (!(*it)->IsAlive()) {
-				delete* it; // ゲームオブジェクトを削除
-				it = gameObjects.erase(it); // ベクターから削除
-			}
-			else {
-				++it; // 次の要素へ
-			}
+		//for (auto it = gameObjects.begin(); it != gameObjects.end();) {
+		//	if (!(*it)->IsAlive()) {
+		//		delete* it; // ゲームオブジェクトを削除
+		//		it = gameObjects.erase(it); // ベクターから削除
+		//	}
+		//	else {
+		//		++it; // 次の要素へ
+		//	}
+		//}
+		
+		//gamescene->Update();
+		//gamescene->Draw();
+		if (Input::IsKeyDown(KEY_INPUT_T))
+		{
+			state = TITLE;
 		}
+		if (Input::IsKeyDown(KEY_INPUT_P))
+		{
+			state = PLAY;
+		}
+		
+		switch (state)
+		{
+		case TITLE:
+			DrawString(10, 10, "title", GetColor(255, 0, 0));
+			break;
+		case PLAY:
+			//ゲームオブジェクトの追加
+			if (newObjects.size() > 0)
+			{
+				for (auto& obj : newObjects)
+				{
+					gameObjects.push_back(obj); // 新しいゲームオブジェクトを追加	
+				}
+				newObjects.clear(); // 新しいゲームオブジェクトのベクターをクリア
+			}
+			//gameObjectsの更新
+			for (auto& obj : gameObjects)
+			{
+				obj->Update(); // ゲームオブジェクトの更新
+			}
+			//gameObjectsの描画
+			for (auto& obj : gameObjects)
+			{
+				obj->Draw(); // ゲームオブジェクトの描画
+			}
+
+			for (auto it = gameObjects.begin(); it != gameObjects.end();)
+			{
+				if (!(*it)->IsAlive())
+				{
+					delete* it; // ゲームオブジェクトを削除
+					it = gameObjects.erase(it); // ベクターから削除
+				}
+				else
+				{
+					++it; // 次の要素へ
+				}
+			}
+			break;
+		case GAMEOVER:
+			break;
+		default:
+			break;
+		}
+		
+		
 		//ここにやりたい処理を書く（ここまで）
 
 

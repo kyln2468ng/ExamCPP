@@ -1,22 +1,20 @@
-#pragma once
+//#pragma once
+//#include <string>
+//#include <list>
+//
+//class GameScene
+//{
+//public:
+//	void Init();
+//	void Update();
+//	void Draw();
+//	void Release();
+//
+//	void ChangeScene(const std::string& sceneName);
+//
+//	void Exit();
+//
+//	bool isExit();
+//}
 
-enum Scene
-{
-	TITLE,
-	PLAY,
-	GAMEOVER,
-	MAXSTATE
-};
-
-class GameScene
-{
-public:
-	GameScene();
-	~GameScene();
-	void Update();
-	void Draw();
-protected:
-private:
-	int sceneState;
-};
 
