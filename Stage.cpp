@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "EnemyBeam.h"
 
 namespace
 {
@@ -61,12 +62,14 @@ void Stage::Update()
 	//}
 	
 	//‚±‚±‚É“–‚½‚è”»’è‚ğ•`‚«‚½‚¢I
+	// enemy‚Ì“–‚½‚è”»’è
 	std::vector<Bullet*> bullets = player_->GetAllBullets();
 	for (auto& e : enemy_)
 	{
 		for (auto& b : bullets)
 		{
-			if (b->IsFired() && e->IsAlive()) {
+			if (b->IsFired() && e->IsAlive())
+			{
 				if (IntersectRect(e->GetRect(), b->GetRect()))
 				{
 					// DrawText("atatta", 0, 0, GetColor(255, 0, 0));
@@ -78,6 +81,43 @@ void Stage::Update()
 			}
 		}
 	}
+
+	std::vector<EnemyBeam*> beams;
+	//std::vector<Enemy*> enemies;
+	for (auto& e : enemy_)
+	{
+		std::vector<EnemyBeam*> enemyBeams = e->GetAllBullets();
+		beams.insert(beams.end(), enemyBeams.begin(), enemyBeams.end());
+	}
+	for (auto& bm : beams)
+	{
+		if (bm->IsFired() && player_->IsAlive())
+		{
+			DrawString(0, 0, "isAlive",GetColor(255,255,255));
+			if (bm->IsFired())
+				bm->SetFired(false);
+			if (player_->IsAlive())
+				player_->SetAlive(false);
+		}
+	}
+	// player‚Ì“–‚½‚è”»’è
+	//std::vector<EnemyBeam*> beams = enemy->GetAllBullets();
+	//for (auto& p : player)
+	//{
+	//	for (auto& b : beams)
+	//	{
+	//		if (b->IsFired() && p->IsAlive()) {
+	//			if (IntersectRect(p->GetRect(), b->GetRect()))
+	//			{
+	//				// DrawText("atatta", 0, 0, GetColor(255, 0, 0));
+	//				if (b->IsFired())
+	//					b->SetFired(false);
+	//				if (p->IsAlive())
+	//					p->SetAlive(false);
+	//			}
+	//		}
+	//	}
+	//}
 
 }
 

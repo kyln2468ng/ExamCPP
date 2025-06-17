@@ -12,6 +12,8 @@ namespace
 	const int BGCOLOR[3] = { 0, 0, 0 }; // 背景色{ 255, 250, 205 }; // 背景色
 	int crrTime;
 	int prevTime;
+	const int CHAR_MARGIN = 32 * 3;
+	const int CHAR_CENTER = WIN_HEIGHT / 2;
 
 	enum SceneState
 	{
@@ -117,7 +119,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		switch (state)
 		{
 		case TITLE:
-			DrawString(10, 10, "title", GetColor(255, 0, 0));
+			SetFontSize(32);
+			DrawString(CHAR_MARGIN, CHAR_CENTER, "title", GetColor(255, 255, 255));
+			DrawString(CHAR_MARGIN, CHAR_CENTER + 32, "push on P", GetColor(255, 255, 255));
 			break;
 		case PLAY:
 			//ゲームオブジェクトの追加

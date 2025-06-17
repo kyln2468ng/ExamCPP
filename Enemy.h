@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "globals.h"
+#include "EnemyBeam.h"
 
 enum ETYPE
 {
@@ -19,6 +20,7 @@ public:
     void SetPos(float x, float y) { x_ = x;y_ = y; } // 敵の座標の設定
     // void SetID(int id) { ID_ = id; } // 敵のIDを設定
     Rect GetRect() const { return { x_, y_, imageSize_.x, imageSize_.y }; } // 敵の矩形を取得
+    std::vector<EnemyBeam*> GetAllBullets() const { return beam_; }
 protected:
 private:
     int hImage_;   // 敵の画像ハンドル
@@ -28,5 +30,7 @@ private:
     float cTime;   // 敵を移動させる時間  
     ETYPE type_;   // 敵の種類
     Point imageSize_;
+    std::vector<EnemyBeam*> beam_; // プレイヤーが発射した弾のベクター
+    EnemyBeam* GetActiveBullet();
 };
 

@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include <string>
 #include "Effect.h"
-#include "EnemyBeam.h"
+//#include "EnemyBeam.h"
 
 namespace
 {
@@ -113,4 +113,16 @@ void Enemy::Update()
 void Enemy::Draw()
 {
 	DrawExtendGraph((int)x_, (int)y_, (int)(x_ + ENEMY_IMAGE_WIDTH), (int)(y_ + ENEMY_IMAGE_HEIGHT), hImage_, TRUE);
+}
+
+EnemyBeam* Enemy::GetActiveBullet()
+{
+	for (auto& itr : beam_)
+	{
+		if (!itr->IsFired())
+		{
+			return itr; // ”­ŽË‚³‚ê‚Ä‚¢‚È‚¢’e‚ð•Ô‚·
+		}
+	}
+	return nullptr;
 }
