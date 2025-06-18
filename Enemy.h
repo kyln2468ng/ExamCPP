@@ -18,6 +18,7 @@ public:
     void Update() override;
     void Draw() override;
     void SetPos(float x, float y) { x_ = x;y_ = y; } // “G‚ÌÀ•W‚Ìİ’è
+    void Shoot(); // ’e‚ğ”­Ë‚·‚éŠÖ”
     // void SetID(int id) { ID_ = id; } // “G‚ÌID‚ğİ’è
     Rect GetRect() const { return { x_, y_, imageSize_.x, imageSize_.y }; } // “G‚Ì‹éŒ`‚ğæ“¾
     std::vector<EnemyBeam*> GetAllBullets() const { return beam_; }

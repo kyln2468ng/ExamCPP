@@ -14,6 +14,7 @@ namespace
 	const float ENEMY_ALIGN_Y = 50.0f;// “G‚ğ•À‚×‚é‚‚³
 	const int ENEMY_LEFT_MARGIN = (WIN_WIDTH - (ENEMY_ALIGN_X * ENEMY_COL_SIZE)) / 2;
 	const int ENEMY_TOP_MARGIN = 75;
+	const int ENEMY_BEAM_LIMIT = 10; // ‰æ–Êã‚Éo‚·“G‚Ì’e”
 
 	bool IntersectRect(const Rect& _a, const Rect& _b)
 	{
@@ -60,7 +61,7 @@ void Stage::Update()
 	//{
 	//	elm->Update();
 	//}
-	
+
 	//‚±‚±‚É“–‚½‚è”»’è‚ğ•`‚«‚½‚¢I
 	// enemy‚Ì“–‚½‚è”»’è
 	std::vector<Bullet*> bullets = player_->GetAllBullets();
@@ -82,18 +83,12 @@ void Stage::Update()
 		}
 	}
 
-	std::vector<EnemyBeam*> beams;
 	//std::vector<Enemy*> enemies;
-	for (auto& e : enemy_)
-	{
-		std::vector<EnemyBeam*> enemyBeams = e->GetAllBullets();
-		beams.insert(beams.end(), enemyBeams.begin(), enemyBeams.end());
-	}
 	for (auto& bm : beams)
 	{
-		if (bm->IsFired() && player_->IsAlive())
+		if (IntersectRect(bm->IsFired() && player_->IsAlive()))
 		{
-			DrawString(0, 0, "isAlive",GetColor(255,255,255));
+			DrawString(0, 0, "isAlive", GetColor(255, 255, 255));
 			if (bm->IsFired())
 				bm->SetFired(false);
 			if (player_->IsAlive())

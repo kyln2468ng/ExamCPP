@@ -14,7 +14,8 @@ namespace
 	const float ENEMY_INIT_SPEED = 1.0f; // 敵の初期速度 
 	float CENTER_X = WIN_WIDTH / 2;
 	const float ENEMY_MOVE_DIS = 55.0 * 10 / 2;
-
+	const int ENEMY_BULLET_NUM = 10;
+	const int BEAM_IMAGE_MAGIN = 17;
 }
 
 Enemy::Enemy()
@@ -30,6 +31,10 @@ Enemy::Enemy()
 	if (hImage_ == -1)
 	{
 
+	}
+	for (int i = 0;i < ENEMY_BULLET_NUM;i++)
+	{
+		beam_.push_back(new EnemyBeam(-10, -10)); // 弾のベクターを初期化
 	}
 	x_ = ENEMY_INIT_X;
 	y_ = ENEMY_INIT_Y;
@@ -113,6 +118,26 @@ void Enemy::Update()
 void Enemy::Draw()
 {
 	DrawExtendGraph((int)x_, (int)y_, (int)(x_ + ENEMY_IMAGE_WIDTH), (int)(y_ + ENEMY_IMAGE_HEIGHT), hImage_, TRUE);
+}
+
+void Enemy::Shoot()
+{
+	/*for (auto& itr : bullets_)
+	{
+		if (itr->IsFired() == false)
+		{
+			itr->SetPos(x_ + BULLET_IMAGE_MAGIN, y_);
+			itr->SetFired(true);
+			break;
+		}
+	}*/
+
+	EnemyBeam* bem = GetActiveBullet();
+	if (bem != nullptr)
+	{
+		bem->SetPos(x_ + BEAM_IMAGE_MAGIN, y_); // 弾の位置を決定
+		bem->SetFired(true); // 発射状態にする
+	}
 }
 
 EnemyBeam* Enemy::GetActiveBullet()
