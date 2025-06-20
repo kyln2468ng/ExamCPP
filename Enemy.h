@@ -18,7 +18,7 @@ public:
     void Update() override;
     void Draw() override;
     void SetPos(float x, float y) { x_ = x;y_ = y; } // 敵の座標の設定
-    void Shoot(); // 弾を発射する関数
+    //void Shoot(); // 弾を発射する関数
     // void SetID(int id) { ID_ = id; } // 敵のIDを設定
     Rect GetRect() const { return { x_, y_, imageSize_.x, imageSize_.y }; } // 敵の矩形を取得
     std::vector<EnemyBeam*> GetAllBullets() const { return beam_; }
@@ -32,6 +32,6 @@ private:
     ETYPE type_;   // 敵の種類
     Point imageSize_;
     std::vector<EnemyBeam*> beam_; // プレイヤーが発射した弾のベクター
-    EnemyBeam* GetActiveBullet();
+    //EnemyBeam* GetActiveBullet();
 };
 

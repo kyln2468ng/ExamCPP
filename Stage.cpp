@@ -14,7 +14,7 @@ namespace
 	const float ENEMY_ALIGN_Y = 50.0f;// 敵を並べる高さ
 	const int ENEMY_LEFT_MARGIN = (WIN_WIDTH - (ENEMY_ALIGN_X * ENEMY_COL_SIZE)) / 2;
 	const int ENEMY_TOP_MARGIN = 75;
-	const int ENEMY_BEAM_LIMIT = 10; // 画面上に出す敵の弾数
+	const int ENEMY_BEAM_LIMIT = 3; // 画面上に出す敵の弾数
 
 	bool IntersectRect(const Rect& _a, const Rect& _b)
 	{
@@ -35,6 +35,7 @@ Stage::Stage()
 	AddGameObject(this); // ステージオブジェクトをゲームオブジェクト
 	player_ = new Player(); // プレイヤーゲームオブジェクトの生成
 	enemy_ = std::vector<Enemy*>(ENEMY_NUM); // 敵オブジェクトの生成
+	bem_ = std::vector<EnemyBeam*>(ENEMY_BEAM_LIMIT);
 
 	for (int i = 0;i < ENEMY_NUM;i++)
 	{
@@ -48,10 +49,16 @@ Stage::Stage()
 	}
 	hBackGround = LoadGraph("Assets/bg.png");
 
+	for (int i = 0;i < ENEMY_BEAM_LIMIT;i++)
+	{
+		bem_[i] = new EnemyBeam(enemy_[i]->GetRect().x, enemy_[i]->GetRect().y);
+	}
 }
 
 Stage::~Stage()
 {
+	//player_->~Player();
+	//enemy_
 }
 
 void Stage::Update()
@@ -77,22 +84,26 @@ void Stage::Update()
 					if (b->IsFired())
 						b->SetFired(false);
 					if (e->IsAlive())
+					{
 						e->SetAlive(false);
+					}
 				}
 			}
 		}
 	}
 
-	//std::vector<Enemy*> enemies;
-	for (auto& bm : beams)
+	
+	for (auto& bm : bem_)
 	{
-		if (IntersectRect(bm->IsFired() && player_->IsAlive()))
+		if (bm->IsFired() && player_->IsAlive())
 		{
-			DrawString(0, 0, "isAlive", GetColor(255, 255, 255));
-			if (bm->IsFired())
-				bm->SetFired(false);
-			if (player_->IsAlive())
-				player_->SetAlive(false);
+			if (IntersectRect(bm->GetRect(), player_->GetRect()))
+			{
+				if (bm->IsFired())
+					bm->SetFired(false);
+				if (player_->IsAlive())
+					player_->SetAlive(false);
+			}
 		}
 	}
 	// playerの当たり判定
@@ -114,6 +125,12 @@ void Stage::Update()
 	//	}
 	//}
 
+	/*static float beamTimer = 3.0f;
+	if (beamTimer < 0)
+	{
+		beamTimer = 3.0f;
+	}
+	beamTimer -= GetDeltaTiem();*/
 }
 
 void Stage::Draw()

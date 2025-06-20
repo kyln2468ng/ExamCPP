@@ -64,3 +64,5 @@ void EnemyBeam::Draw()
 		DrawExtendGraphF(pos_.x, pos_.y, pos_.x + imageSize_.x, pos_.y + imageSize_.y, hImage_, TRUE); // ’e‚Ì•`‰æ
 	}
 }
+
+

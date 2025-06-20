@@ -13,8 +13,8 @@ public:
     void Update() override;
     void Draw() override;
 
-    void SetPos(float x, float y) { pos_.x = x;pos_.y = y; }
-    void SetPoa(const Point& pos) { pos_ = pos; }
+    //void SetPos_(float x, float y) { pos_.x = x;pos_.y = y; }
+    void SetPos(const Point& pos) { pos_ = pos; }
     void SetFired(bool fired) { isFired_ = fired; }
     bool IsFired() const { return isFired_; }
     Rect GetRect() const { return{ pos_.x,pos_.y,imageSize_.x,imageSize_.y }; }

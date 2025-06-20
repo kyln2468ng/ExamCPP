@@ -85,7 +85,7 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	static float beamTimer = 3.0f;
+	//static float beamTimer = 3.0f;
 
 	static float rTime = 3.0f;
 	cTime += GetDeltaTiem();
@@ -101,53 +101,59 @@ void Enemy::Update()
 			cTime = 0.0f;
 		}
 	}
+
 	//float period = 10.0f; // ˆê‰•œ‚É‚©‚¯‚éŠÔ(•b)
 	//float omega = 2.0f * 3.1445926535f / period; // Šp‘¬“x@ƒÖ = 2ƒÎ
 	//cTime = cTime + GetDeltaTiem();
 	//x_ = xorigin_ + xMoveMax_ / 2.0f * sinf(omega * moveTime_);
 	//y_ = y_;
 
-	if (beamTimer < 0)
-	{
-		new EnemyBeam(x_ + ENEMY_IMAGE_WIDTH / 2, y_ + ENEMY_IMAGE_HEIGHT);
-		beamTimer = 3.0f;
-	}
-	beamTimer -= GetDeltaTiem();
+	//if (beamTimer < 0)
+	//{
+	//	new EnemyBeam(x_ + ENEMY_IMAGE_WIDTH / 2, y_ + ENEMY_IMAGE_HEIGHT);
+	//	//Shoot();
+	//	beamTimer = 3.0f;
+	//}
+	//beamTimer -= GetDeltaTiem();
 }
 
 void Enemy::Draw()
 {
-	DrawExtendGraph((int)x_, (int)y_, (int)(x_ + ENEMY_IMAGE_WIDTH), (int)(y_ + ENEMY_IMAGE_HEIGHT), hImage_, TRUE);
-}
-
-void Enemy::Shoot()
-{
-	/*for (auto& itr : bullets_)
+	if (isAlive_ == true)
 	{
-		if (itr->IsFired() == false)
-		{
-			itr->SetPos(x_ + BULLET_IMAGE_MAGIN, y_);
-			itr->SetFired(true);
-			break;
-		}
-	}*/
-
-	EnemyBeam* bem = GetActiveBullet();
-	if (bem != nullptr)
-	{
-		bem->SetPos(x_ + BEAM_IMAGE_MAGIN, y_); // ’e‚ÌˆÊ’u‚ğŒˆ’è
-		bem->SetFired(true); // ”­Ëó‘Ô‚É‚·‚é
+		DrawExtendGraph((int)x_, (int)y_, (int)(x_ + ENEMY_IMAGE_WIDTH), (int)(y_ + ENEMY_IMAGE_HEIGHT), hImage_, TRUE);
 	}
 }
 
-EnemyBeam* Enemy::GetActiveBullet()
-{
-	for (auto& itr : beam_)
-	{
-		if (!itr->IsFired())
-		{
-			return itr; // ”­Ë‚³‚ê‚Ä‚¢‚È‚¢’e‚ğ•Ô‚·
-		}
-	}
-	return nullptr;
-}
+//void Enemy::Shoot()
+//{
+//	/*for (auto& itr : bullets_)
+//	{
+//		if (itr->IsFired() == false)
+//		{
+//			itr->SetPos(x_ + BULLET_IMAGE_MAGIN, y_);
+//			itr->SetFired(true);
+//			break;
+//		}
+//	}*/
+//
+//	EnemyBeam* bem = GetActiveBullet();
+//	Point pos_ = { (x_ + ENEMY_IMAGE_WIDTH / 2, y_ + ENEMY_IMAGE_HEIGHT) };
+//	if (bem != nullptr)
+//	{
+//		bem->SetPos(pos_); // ’e‚ÌˆÊ’u‚ğŒˆ’è
+//		bem->SetFired(true); // ”­Ëó‘Ô‚É‚·‚é
+//	}
+//}
+//
+//EnemyBeam* Enemy::GetActiveBullet()
+//{
+//	for (auto& itr : beam_)
+//	{
+//		if (!itr->IsFired())
+//		{
+//			return itr; // ”­Ë‚³‚ê‚Ä‚¢‚È‚¢’e‚ğ•Ô‚·
+//		}
+//	}
+//	return nullptr;
+//}
