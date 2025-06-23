@@ -76,7 +76,7 @@ Enemy::Enemy(int id, ETYPE type)
 
 Enemy::~Enemy()
 {
-	new Effect({ x_,y_ });
+	//new Effect({ x_,y_ });
 	if (hImage_ != -1)
 	{
 		DeleteGraph(hImage_);

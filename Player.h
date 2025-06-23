@@ -14,6 +14,7 @@ public:
     void Draw() override;
     void Shoot(); // ’e‚ğ”­Ë‚·‚éŠÖ”
     Rect GetRect() const { return { x_,y_,imageSize_.x,imageSize_.y }; }
+    Point GetPos() const { return { x_,y_ }; }
     std::vector<Bullet*> GetAllBullets() const { return bullets_; }
 protected:
 private:

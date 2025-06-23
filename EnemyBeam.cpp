@@ -1,5 +1,6 @@
 #include "EnemyBeam.h"
 #include "DxLib.h"
+#include "Player.h"
 
 namespace
 {
@@ -32,6 +33,8 @@ EnemyBeam::EnemyBeam(Point pos_)
 	speed_(ENEMY_BEAM_INIT_SPEED), isFired_(true), imageSize_({ ENEMY_BEAM_IMAGE_WIDTH,ENEMY_BEAM_IMAGE_HEIGHT })
 {
 	hImage_ = LoadGraph("Assets/ebeams.png");
+	//Player* player;
+	//pos_ = (player->GetPos().x - pos_.x,player->GetPos().y - pos_.y);
 
 	AddGameObject(this);
 }

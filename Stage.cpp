@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "EnemyBeam.h"
+#include "Effect.h"
 
 namespace
 {
@@ -14,7 +15,7 @@ namespace
 	const float ENEMY_ALIGN_Y = 50.0f;// “G‚ð•À‚×‚é‚‚³
 	const int ENEMY_LEFT_MARGIN = (WIN_WIDTH - (ENEMY_ALIGN_X * ENEMY_COL_SIZE)) / 2;
 	const int ENEMY_TOP_MARGIN = 75;
-	const int ENEMY_BEAM_LIMIT = 3; // ‰æ–Êã‚Éo‚·“G‚Ì’e”
+	const int ENEMY_BEAM_LIMIT = 10; // ‰æ–Êã‚Éo‚·“G‚Ì’e”
 
 	bool IntersectRect(const Rect& _a, const Rect& _b)
 	{
@@ -86,6 +87,7 @@ void Stage::Update()
 					if (e->IsAlive())
 					{
 						e->SetAlive(false);
+						new Effect({ e->GetRect().x,e->GetRect().y });
 					}
 				}
 			}
@@ -102,7 +104,14 @@ void Stage::Update()
 				if (bm->IsFired())
 					bm->SetFired(false);
 				if (player_->IsAlive())
+				{
 					player_->SetAlive(false);
+					isAlive_ = false;
+					for (auto& e : enemy_)
+					{
+						e->SetAlive(false);
+					}
+				}
 			}
 		}
 	}
@@ -125,12 +134,18 @@ void Stage::Update()
 	//	}
 	//}
 
-	/*static float beamTimer = 3.0f;
+
+
+	static float beamTimer = 3.0f;
 	if (beamTimer < 0)
 	{
 		beamTimer = 3.0f;
+		for (int i = 0;i < ENEMY_BEAM_LIMIT;i++)
+		{
+			bem_[i] = new EnemyBeam(enemy_[i]->GetRect().x, enemy_[i]->GetRect().y);
+		}
 	}
-	beamTimer -= GetDeltaTiem();*/
+	beamTimer -= GetDeltaTiem();
 }
 
 void Stage::Draw()
